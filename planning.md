@@ -15,9 +15,9 @@ Display boundaries are recored in `MIN_Y`,`MAX_Y`,`MIN_X`,and `MAX_X`.
 `player` is at `(-50, 50)` and `treasure` is at `(0, 0)` for the starting positions.
 
 ## Planning required changes
-1. Change the speed of the player
+1. To change the speed of the player change `static constexpr bn::fixed SPEED = 1;` to `static constexpr bn::fixed SPEED = 1.5;` to make the player move faster.
 
-2. Change the backdrop color
+2. To change the backdrop color, `include` the `backdrop` and `color`, then in main set color to blue
 
 3. Change the starting position of the player and dot, making new static constexpr for starting X and Y of each
 
