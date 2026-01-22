@@ -13,6 +13,9 @@
 #include "bn_sprite_items_square.h"
 #include "common_fixed_8x16_font.h"
 
+// imports/includes  all the core functions of gameboy which includes, keypad, core, sprite
+// as well as the random
+
 // Pixels / Frame player moves at
 static constexpr bn::fixed SPEED = 1;
 

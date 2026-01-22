@@ -1,7 +1,10 @@
 A place to write your findings and plans
 
 ## Understanding
-
+(Buay) The main.cpp has the main includes such as core, keypad, size(for player), random for the dot
+when it hits the player and some sprites for the game. This does not include the backdrop to set the
+color background. There's a score count feature to where when player touches the sqaure it adds + 1 
+to the score.
 
 ## Planning required changes
 
