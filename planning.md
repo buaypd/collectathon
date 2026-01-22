@@ -15,6 +15,17 @@ Display boundaries are recored in `MIN_Y`,`MAX_Y`,`MIN_X`,and `MAX_X`.
 `player` is at `(-50, 50)` and `treasure` is at `(0, 0)` for the starting positions.
 
 ## Planning required changes
+1. Change the speed of the player
+
+2. Change the backdrop color
+
+3. Change the starting position of the player and dot, making new static constexpr for starting X and Y of each
+
+4. Make it so when the player hits start, the game restarts (the player and treasure are sent back to their initial positions and the score is reset to zero)
+
+5. Make it so that the player loops around the screen (if they go off the left of the screen, they show up on the right, if they go off the bottom of the screen they show up at the top, etc.)
+
+6. Make a speed boost. When the player presses 'A', their speed is increased for a short amount of time. They can only use the speed boost 3 times. They get all speed boosts back when the game is restarted by pressing start.
 
 ## Brainstorming game ideas
 
