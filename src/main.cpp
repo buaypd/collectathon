@@ -57,6 +57,16 @@ int main()
 
     while (true)
     {
+        // Game Reset
+        if (bn::keypad::start_pressed())
+        {
+            score = 0;
+            player.set_x(0);
+            player.set_y(0);
+            treasure.set_x(0);
+            treasure.set_y(0);
+        }
+
         // Move player with d-pad
         if (bn::keypad::left_held())
         {
@@ -95,12 +105,22 @@ int main()
 
             score++;
         }
-        // resets the score to 0
-        if (bn::keypad::start_pressed())
+
+        if(player.x() > MAX_X)
         {
-            score = 0;
-            player.set_x(0);
-            player.set_y(0);
+            player.set_x(MIN_X);
+        }
+        if(player.x() < MIN_X)
+        {
+            player.set_x(MAX_X);
+        }
+        if(player.y() > MAX_Y)
+        {
+            player.set_y(MIN_Y);
+        }
+        if(player.y() < MIN_Y)
+        {
+            player.set_y(MAX_Y);
         }
 
         // Update score display
