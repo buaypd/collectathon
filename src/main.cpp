@@ -38,6 +38,12 @@ static constexpr int MAX_SCORE_CHARS = 11;
 static constexpr int SCORE_X = 70;
 static constexpr int SCORE_Y = -70;
 
+// Starting points for player and treasure
+static constexpr int PLAYER_START_X = -50;
+static constexpr int PLAYER_START_Y = 50;
+static constexpr int TREASURE_START_X = 0;
+static constexpr int TREASURE_START_Y = 0;
+
 int main()
 {
     bn::core::init();
@@ -52,8 +58,8 @@ int main()
 
     int score = 0;
 
-    bn::sprite_ptr player = bn::sprite_items::square.create_sprite(-50, 50);
-    bn::sprite_ptr treasure = bn::sprite_items::dot.create_sprite(0, 0);
+    bn::sprite_ptr player = bn::sprite_items::square.create_sprite(PLAYER_START_X, PLAYER_START_Y);
+    bn::sprite_ptr treasure = bn::sprite_items::dot.create_sprite(TREASURE_START_X, TREASURE_START_Y);
 
     while (true)
     {
@@ -61,10 +67,10 @@ int main()
         if (bn::keypad::start_pressed())
         {
             score = 0;
-            player.set_x(0);
-            player.set_y(0);
-            treasure.set_x(0);
-            treasure.set_y(0);
+            player.set_x(PLAYER_START_X);
+            player.set_y(PLAYER_START_Y);
+            treasure.set_x(TREASURE_START_X);
+            treasure.set_y(TREASURE_START_Y);
         }
 
         // Move player with d-pad
