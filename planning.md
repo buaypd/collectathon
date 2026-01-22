@@ -27,6 +27,7 @@ Display boundaries are recored in `MIN_Y`,`MAX_Y`,`MIN_X`,and `MAX_X`.
 
 6. Make a speed boost. When the player presses 'A', their speed is increased for a short amount of time. They can only use the speed boost 3 times. They get all speed boosts back when the game is restarted by pressing start.
 
+6. For the speed post we need to add a `duration` variable and a `boosts_left` variable. We need to add a `if` a is pressed, then drop the `boosts_left` by 1 and increase `duration` to the desired boost length.  then add `if(duration > 0)` then we have the boost applied and we drop the duration by 1 for the frame that just went by. `else` set the speed back to normal. 
 ## Brainstorming game ideas
 
 ## Plan for implementing game
