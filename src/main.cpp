@@ -41,6 +41,7 @@ static constexpr int SCORE_Y = -70;
 int main()
 {
     bn::core::init();
+    
 
     bn::random rng = bn::random();
 
