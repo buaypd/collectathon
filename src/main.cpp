@@ -18,9 +18,6 @@
 // imports/includes  all the core functions of gameboy which includes, keypad, core, sprite
 // as well as the random
 
-// Pixels / Frame player moves at
-static constexpr bn::fixed SPEED = 1;
-
 // Width and height of the the player and treasure bounding boxes
 static constexpr bn::size PLAYER_SIZE = {8, 8};
 static constexpr bn::size TREASURE_SIZE = {8, 8};
@@ -44,8 +41,15 @@ static constexpr int PLAYER_START_Y = 50;
 static constexpr int TREASURE_START_X = 0;
 static constexpr int TREASURE_START_Y = 0;
 
+
+
 int main()
 {
+    // Pixels / Frame player moves at
+    int SPEED = 1;
+    int duration = 0;
+    int boostCount = 3;
+
     bn::core::init();
     // #1
     bn::backdrop::set_color(bn::color(0, 0, 31));
@@ -60,6 +64,8 @@ int main()
 
     bn::sprite_ptr player = bn::sprite_items::square.create_sprite(PLAYER_START_X, PLAYER_START_Y);
     bn::sprite_ptr treasure = bn::sprite_items::dot.create_sprite(TREASURE_START_X, TREASURE_START_Y);
+
+
 
     while (true)
     {
@@ -127,6 +133,18 @@ int main()
         if(player.y() < MIN_Y)
         {
             player.set_y(MAX_Y);
+        }
+
+        if (duration >= 0) {
+            SPEED = 5;
+            duration--;
+        }
+        if (bn::keypad::a_pressed){
+            duration = 60;
+            boostCount--;
+        }
+        else {
+            SPEED = 1;
         }
 
         // Update score display
