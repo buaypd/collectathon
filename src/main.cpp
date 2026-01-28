@@ -22,6 +22,7 @@
 // Width and height of the the player and treasure bounding boxes
 static constexpr bn::size PLAYER_SIZE = {8, 8};
 static constexpr bn::size TREASURE_SIZE = {8, 8};
+static constexpr bn::size BRICK_SIZE = {16, 16};
 
 // Full bounds of the screen
 static constexpr int MIN_Y = -bn::display::height() / 2;
@@ -78,12 +79,23 @@ int main()
     bn::sprite_ptr player = bn::sprite_items::square.create_sprite(PLAYER_START_X, PLAYER_START_Y);
     bn::sprite_ptr treasure = bn::sprite_items::dot.create_sprite(TREASURE_START_X, TREASURE_START_Y);
 
+<<<<<<< HEAD
     bn::vector<bn::sprite_ptr, 12> wave_sprites = {};
     int wave_timer = 180;
     int wave = 1;
+=======
+    //create wall vector
+    bn::vector<bn::sprite_ptr, bn::display::width()/16> wall = {};
+
+    for(int i = 0; i< bn::display::width(); i+= 16)
+    {
+        wall.push_back(bn::sprite_items::brick.create_sprite(MIN_X+i+8,MAX_Y));
+    }
+>>>>>>> ce47c7256f6d1deb955b962e27b7ba81e2dc59ed
 
     while (true)
     {
+
         // Game Reset
         if (bn::keypad::start_pressed())
         {
