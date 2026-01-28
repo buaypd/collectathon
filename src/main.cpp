@@ -35,13 +35,16 @@ static constexpr int MAX_SCORE_CHARS = 11;
 static constexpr int SCORE_X = 70;
 static constexpr int SCORE_Y = -70;
 
+// Speed Boost Location
+static constexpr int SPEED_BOOST_COUNT_X = -70;
+static constexpr int SPEED_BOOST_COUNT_Y = -70;
+static constexpr int SPEED_BOOST_COUNT_CHARS = 11;
+
 // Starting points for player and treasure
 static constexpr int PLAYER_START_X = -50;
 static constexpr int PLAYER_START_Y = 50;
 static constexpr int TREASURE_START_X = 0;
 static constexpr int TREASURE_START_Y = 0;
-
-
 
 int main()
 {
@@ -62,10 +65,11 @@ int main()
 
     int score = 0;
 
+    // This will hold the sprites for the speed boost count
+    bn::vector<bn::sprite_ptr, SPEED_BOOST_COUNT_CHARS> boost_sprites = {};
+
     bn::sprite_ptr player = bn::sprite_items::square.create_sprite(PLAYER_START_X, PLAYER_START_Y);
     bn::sprite_ptr treasure = bn::sprite_items::dot.create_sprite(TREASURE_START_X, TREASURE_START_Y);
-
-
 
     while (true)
     {
@@ -120,33 +124,39 @@ int main()
             score++;
         }
 
-        if(player.x() > MAX_X)
+        if (player.x() > MAX_X)
         {
             player.set_x(MIN_X);
         }
-        if(player.x() < MIN_X)
+        if (player.x() < MIN_X)
         {
             player.set_x(MAX_X);
         }
-        if(player.y() > MAX_Y)
+        if (player.y() > MAX_Y)
         {
             player.set_y(MIN_Y);
         }
-        if(player.y() < MIN_Y)
+        if (player.y() < MIN_Y)
         {
             player.set_y(MAX_Y);
         }
 
-        if (duration > 0) {
+        if (duration > 0)
+        {
             SPEED = 3;
             duration--;
-        } else {
+        }
+        else
+        {
             SPEED = 1;
         }
 
-        if (bn::keypad::a_pressed() && boostCount > 0){
+        if (bn::keypad::a_pressed() && boostCount > 0)
+        {
             duration = 180;
             boostCount--;
+            if(boostCount < 0)
+            boostCount = 0;
         }
 
         // Update score display
@@ -155,6 +165,13 @@ int main()
         text_generator.generate(SCORE_X, SCORE_Y,
                                 score_string,
                                 score_sprites);
+
+        // added the boost display
+        bn::string<SPEED_BOOST_COUNT_CHARS> boost_string = bn::to_string<SPEED_BOOST_COUNT_CHARS>(boostCount);
+        boost_sprites.clear();
+        text_generator.generate(SPEED_BOOST_COUNT_X, SPEED_BOOST_COUNT_Y,
+                                boost_string,
+                                boost_sprites);
 
         // Update RNG seed every frame so we don't get the same sequence of positions every time
         rng.update();

@@ -27,6 +27,6 @@ Display boundaries are recored in `MIN_Y`,`MAX_Y`,`MIN_X`,and `MAX_X`.
 
 6. For the speed boost we need to add a `duration` variable and a `boosts_left` variable. We need to add a `if` a is pressed, then drop the `boosts_left` by 1 and increase `duration` to the desired boost length.  then add `if(duration > 0)` then we have the boost applied and we drop the duration by 1 for the frame that just went by. `else` set the speed back to normal. 
 ## Brainstorming game ideas
-
+add a score board.
 ## Plan for implementing game
 
