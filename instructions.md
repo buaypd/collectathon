@@ -162,9 +162,40 @@ Again, ALL PARTNERS SHOULD BE ADDING COMMITING AND PUSHING FREQUENTLY.
 
 Repeat the above to make AT LEAST 3 changes. Try to get more ambitious as you go: start with small changes and work your way up to bigger ones. For this part it is OK to work separately from your partner (or together if you prefer). Just make sure you coordinate! Consider playing on the real GBA as you develop.
 
-## Polish and validate
+## Wave 7: Polishing
+
+### Playtesting
+Find other players to play your game! Gather honest feedback of what they do and don't like about the graphics, gameplay, difficulty, etc.
+
+### Improving
+Improve your game in two ways:
+1. Make one or more improvements to the game itself. This can include:
+    - Improved graphics
+    - Changed difficulty
+    - New features
+    - Bug fixes
+1. Make one or more improvements to the code. This can include:
+    - Removing of dead code / outdated comments
+    - Adding new, better comments
+    - Improving variable names
+    - Optimizing performance
+    - Refactoring
+Make sure to be making commits and testing your game along the way!
+
+### Polish and validate
 1. Once you're satisfied with your game and everything is pushed, verify that it works on GitHub pages. Fix configuration if needed.
 1. Make a quick gif of your game!
-1. Update README.md. Give a new name to your game, and a brief description of it. Add a link to the deployed GitHub page from your README.
+    1. Open your game in mGBA.
+    1. Click Audio/Video > Record GIF/WebP/APNG
+    1. Choose GIF, and make sure "Loop" is checked
+    1. Select a location in your repo and give a name to the GIF
+    1. Click Start, and play your game for a short while (probably no more than 10 seconds)
+    1. Click Stop.
+    1. Verify your GIF has been saved in your repo and add/commit/push the GIF.
+1. Update README.md. I encourage you to look up Markdown syntax online!
+    - Give a new name to your game, and a brief description of it.
+    - Add a link to the deployed GitHub page from your README.
+    - Embed your GIF
+    - Keep the README short, but informative and exciting. You want someone to see it and quickly have an idea of what your game is and be able to find the link to play it.
 1. BOTH PARTNERS MUST SUBMIT TO CANVAS. Submit both your GitHub repo URL and the deployed game URL.
 1. Share with your friends and/or family!
