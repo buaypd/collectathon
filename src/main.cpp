@@ -50,6 +50,7 @@ static constexpr int TREASURE_START_Y = 0;
 
 int main()
 {
+    int score = 0;
     // Pixels / Frame player moves at
     int SPEED = 1;
     int duration = 0;
@@ -58,41 +59,45 @@ int main()
     bn::core::init();
     // #1
     bn::backdrop::set_color(bn::color(0, 0, 31));
-
+    
     bn::random rng = bn::random();
-
-    // Will hold the sprites for the score
-    bn::vector<bn::sprite_ptr, MAX_SCORE_CHARS> score_sprites = {};
-    bn::sprite_text_generator text_generator(common::fixed_8x16_sprite_font);
-
-    int score = 0;
-    bn::vector<bn::sprite_ptr, 5> score_label_sprites;
-    text_generator.generate(SCORE_X - 50, SCORE_Y, "SCORE:", score_label_sprites);
-
-    // This will hold the sprites for the speed boost count
-    bn::vector<bn::sprite_ptr, 11> boost_label_sprites = {};
-    bn::vector<bn::sprite_ptr, SPEED_BOOST_COUNT_CHARS> boost_sprites = {};
-
-    text_generator.generate(SPEED_BOOST_COUNT_X - 90, SPEED_BOOST_COUNT_Y,
-                            "BOOST LEFT:", boost_label_sprites);
-
+    
+    
     bn::sprite_ptr player = bn::sprite_items::square.create_sprite(PLAYER_START_X, PLAYER_START_Y);
     bn::sprite_ptr treasure = bn::sprite_items::dot.create_sprite(TREASURE_START_X, TREASURE_START_Y);
-
+    
     bn::vector<bn::sprite_ptr, 12> wave_sprites = {};
     int wave_timer = 180;
     int wave = 1;
     
     //create wall vector
     bn::vector<bn::sprite_ptr, bn::display::width()/16> wall = {};
-
-    for(int i = 0; i< bn::display::width(); i+= 16)
-    {
-        wall.push_back(bn::sprite_items::brick.create_sprite(MIN_X+i+8,MIN_Y));
-    }
-
+    int wall_Y = MIN_Y;
+    
     while (true)
-    {
+    {   
+        if(wall_Y == MIN_Y)
+        {
+            for(int i = 0; i< bn::display::width(); i+= 16)
+            {
+                wall.push_back(bn::sprite_items::brick.create_sprite(MIN_X+i+8,MIN_Y+1));
+            }
+            wall_Y++;
+
+        } 
+        else if(wall_Y == MAX_Y)
+        {
+            wall.clear();
+            wall_Y = MIN_Y;
+        } 
+        else 
+        {
+            for(int i = 0; i< bn::display::width()/16; i++)
+            {
+                wall[i].set_y(wall[i].y() + 1); 
+            }
+            wall_Y ++;
+        }
 
         // Game Reset
         if (bn::keypad::start_pressed())
@@ -176,10 +181,23 @@ int main()
         {
             duration = 180;
             boostCount--;
-            if (boostCount < 0)
-                boostCount = 0;
         }
 
+        
+        // Will hold the sprites for the score
+        bn::vector<bn::sprite_ptr, MAX_SCORE_CHARS> score_sprites = {};
+        bn::sprite_text_generator text_generator(common::fixed_8x16_sprite_font);
+    
+        bn::vector<bn::sprite_ptr, 5> score_label_sprites;
+        text_generator.generate(SCORE_X - 50, SCORE_Y, "SCORE:", score_label_sprites);
+    
+        // This will hold the sprites for the speed boost count
+        bn::vector<bn::sprite_ptr, 11> boost_label_sprites = {};
+        bn::vector<bn::sprite_ptr, SPEED_BOOST_COUNT_CHARS> boost_sprites = {};
+    
+        text_generator.generate(SPEED_BOOST_COUNT_X - 90, SPEED_BOOST_COUNT_Y,
+                                "BOOST LEFT:", boost_label_sprites);
+        
         // Update score display
         bn::string<MAX_SCORE_CHARS> score_string = bn::to_string<MAX_SCORE_CHARS>(score);
         score_sprites.clear();
@@ -190,14 +208,12 @@ int main()
         // added the boost display
         bn::string<SPEED_BOOST_COUNT_CHARS> boost_string = bn::to_string<SPEED_BOOST_COUNT_CHARS>(boostCount);
         boost_sprites.clear();
+        // added Boost count text
         text_generator.generate(SPEED_BOOST_COUNT_X, SPEED_BOOST_COUNT_Y,
                                 boost_string,
                                 boost_sprites);
-        // added Boost count text
 
-        // Update RNG seed every frame so we don't get the same sequence of positions every time
-        rng.update();
-
+                                
         if (wave_timer > 0)
         {
             wave_sprites.clear();
@@ -209,6 +225,8 @@ int main()
         {
             wave_sprites.clear();
         }
+        // Update RNG seed every frame so we don't get the same sequence of positions every time
+        rng.update();
         bn::core::update();
     }
 }
