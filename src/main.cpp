@@ -76,6 +76,38 @@ int main()
     
     while (true)
     {   
+        
+        // Game Reset
+        if (bn::keypad::start_pressed())
+        {
+            boostCount = 3;
+            duration = 0;
+            score = 0;
+            player.set_x(PLAYER_START_X);
+            player.set_y(PLAYER_START_Y);
+            treasure.set_x(TREASURE_START_X);
+            treasure.set_y(TREASURE_START_Y);
+            wall_Y = MIN_Y;
+        }
+        
+        // Move player with d-pad
+        if (bn::keypad::left_held())
+        {
+            player.set_x(player.x() - SPEED);
+        }
+        if (bn::keypad::right_held())
+        {
+            player.set_x(player.x() + SPEED);
+        }
+        if (bn::keypad::up_held())
+        {
+            player.set_y(player.y() - SPEED);
+        }
+        if (bn::keypad::down_held())
+        {
+            player.set_y(player.y() + SPEED);
+        }
+        
         if(wall_Y == MIN_Y)
         {
             for(int i = 0; i< bn::display::width(); i+= 16)
@@ -98,37 +130,7 @@ int main()
             }
             wall_Y ++;
         }
-
-        // Game Reset
-        if (bn::keypad::start_pressed())
-        {
-            boostCount = 3;
-            duration = 0;
-            score = 0;
-            player.set_x(PLAYER_START_X);
-            player.set_y(PLAYER_START_Y);
-            treasure.set_x(TREASURE_START_X);
-            treasure.set_y(TREASURE_START_Y);
-        }
-
-        // Move player with d-pad
-        if (bn::keypad::left_held())
-        {
-            player.set_x(player.x() - SPEED);
-        }
-        if (bn::keypad::right_held())
-        {
-            player.set_x(player.x() + SPEED);
-        }
-        if (bn::keypad::up_held())
-        {
-            player.set_y(player.y() - SPEED);
-        }
-        if (bn::keypad::down_held())
-        {
-            player.set_y(player.y() + SPEED);
-        }
-
+        
         // The bounding boxes of the player and treasure, snapped to integer pixels
         bn::rect player_rect = bn::rect(player.x().round_integer(),
                                         player.y().round_integer(),
